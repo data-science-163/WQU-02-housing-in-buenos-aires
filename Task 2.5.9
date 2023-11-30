@@ -1,0 +1,8 @@
+# Build Model
+model = make_pipeline(
+    OneHotEncoder(use_cat_names=True),
+    SimpleImputer(),
+    Ridge()
+)
+# Fit model
+model.fit(X_train, y_train)
