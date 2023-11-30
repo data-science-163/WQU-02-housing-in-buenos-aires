@@ -1,0 +1,44 @@
+# Build your `wrangle` function
+def wrangle(filepath):
+    # Reading CSV File
+    df = pd.read_csv(filepath)
+    
+    #1.  Return Only apartment types
+    mask_apt = df["property_type"] == "apartment"
+    mask_capital = df['place_with_parent_names'].str.contains('Distrito Federal')
+    mask_price = df['price_aprox_usd'] < 100000
+    df = df[mask_capital & mask_apt & mask_price]
+    
+    #2. Remove Outliers
+    low, high = df['surface_covered_in_m2'].quantile([0.1,0.9])
+    mask_area = df['surface_covered_in_m2'].between(low, high)
+    df = df[mask_area]
+    
+    #3. Make Lat, Lon Seperate Column and Drop the lat-lon column
+    df[['lat','lon']] = df['lat-lon'].str.split(',', expand=True).astype('float')
+    df.drop(columns='lat-lon', inplace=True)
+    
+    #4. Make Borough Column
+    df['boroughs'] = df['place_with_parent_names'].str.split('|', expand=True)[1]
+    df.drop(columns='place_with_parent_names', inplace=True)
+    
+    #5. Drop Columns with more then 50% null values
+    df.drop(columns=[
+        'surface_total_in_m2',
+        'price_usd_per_m2',
+        'floor',
+        'rooms',
+        'expenses',
+    ],
+        inplace=True
+    )
+    
+    #6. Drop low and high cardinality categorical features
+    df.drop(columns=['operation', 'property_type','currency','properati_url'], inplace=True)
+    
+    #7. Drop any column that cause leakage
+    df.drop(columns=['price','price_aprox_local_currency','price_per_m2'], inplace=True)
+    
+    #8. I think there is not much collinearity features
+    
+    return df
