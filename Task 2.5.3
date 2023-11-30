@@ -1,0 +1,3 @@
+df = pd.concat([wrangle(file) for file in files], ignore_index=True)
+print(df.info())
+df.head()
