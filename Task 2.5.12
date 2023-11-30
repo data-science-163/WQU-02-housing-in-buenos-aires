@@ -1,0 +1,4 @@
+coefficients = model.named_steps['ridge'].coef_
+features = model.named_steps['onehotencoder'].get_feature_names()
+feat_imp = pd.Series(coefficients, features)
+feat_imp
