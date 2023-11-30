@@ -1,0 +1,13 @@
+# Build bar chart
+feat_imp.sort_values(key=abs).tail(10).plot(kind='barh')
+
+
+# Label axes
+plt.xlabel("Importance [USD]")
+plt.ylabel("Features")
+
+# Add title
+plt.title("Feature Importance for Apartment Price");
+
+# Don't delete the code below 👇
+plt.savefig("images/2-5-13.png", dpi=150)
