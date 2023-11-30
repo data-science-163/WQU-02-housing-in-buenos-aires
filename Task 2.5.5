@@ -1,0 +1,13 @@
+# Build scatter plot
+plt.scatter(x=df['surface_covered_in_m2'], y=df['price_aprox_usd'])
+
+
+# Label axes
+plt.xlabel("Area [sq meters]")
+plt.ylabel("Price [USD]")
+
+# Add title
+plt.title("Mexico City: Price vs. Area");
+
+# Don't delete the code below 👇
+plt.savefig("images/2-5-5.png", dpi=150)
