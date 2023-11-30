@@ -1,0 +1,13 @@
+# Build histogram
+plt.hist(df['price_aprox_usd'])
+
+
+# Label axes
+plt.xlabel("Price [$]")
+plt.ylabel("Count")
+
+# Add title
+plt.title("Distribution of Apartment Prices");
+
+# Don't delete the code below 👇
+plt.savefig("images/2-5-4.png", dpi=150)
